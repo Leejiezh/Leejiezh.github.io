@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="mvn命令报没有配置jdk环境, lee-blog">
+    <meta name="keywords" content="RocketMQ可视化界面安装, lee-blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>mvn命令报没有配置jdk环境 | lee-blog</title>
+    <title>RocketMQ可视化界面安装 | lee-blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,12 +312,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">mvn命令报没有配置jdk环境</h1>
+                    <h1 class="description center-align post-title">RocketMQ可视化界面安装</h1>
                 </div>
             </div>
         </div>
@@ -433,8 +433,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/maven/">
-                                <span class="chip bg-color">maven</span>
+                            <a href="/tags/rocketmq/">
+                                <span class="chip bg-color">rocketmq</span>
                             </a>
                         
                     </div>
@@ -479,26 +479,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="mvn-命令报没有配置jdk环境"><a href="#mvn-命令报没有配置jdk环境" class="headerlink" title="mvn 命令报没有配置jdk环境"></a>mvn 命令报没有配置jdk环境</h1><p>jdk环境变量配置没问题，并且java -version 也正常显示。</p>
-<p>执行mvn -v 报错误：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/d/Program Files/maven/apache-maven-3.9.5/bin/mvn: line 93: cd: C:\Program Files\Java\jdk-19;: No such file or directory</span><br><span class="line">The JAVA_HOME environment variable is not defined correctly,</span><br><span class="line">this environment variable is needed to run this program.</span><br></pre></td></tr></tbody></table></figure>
-
-<p><strong>解决方法：</strong></p>
+                <h1 id="RocketMQ可视化界面安装"><a href="#RocketMQ可视化界面安装" class="headerlink" title="RocketMQ可视化界面安装"></a>RocketMQ可视化界面安装</h1><p>**起因：**访问rocketmq-externals项目的git地址，下载了源码，在目录中并没有找到rocketmq-console文件夹。</p>
+<img src="/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/c05b0433185fafe34db4cdcb40dc2e19.png" class="" title="MQ仪表板">
+<p>git下面文档提示rocketMQ的仪表板转移到了新的项目中，点击<a target="_blank" rel="noopener" href="https://github.com/apache/rocketmq-externals?tab=readme-ov-file">仪表板</a>到新项目地址；</p>
 <ol>
-<li>命令行设置<em>JAVA_HOME</em></li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自己本机jdk安装目录（C:\Program Files\Java\jdk-19）</span></span><br><span class="line">setx JAVA_HOME <span class="string">"C:\Program Files\Java\jdk-19"</span></span><br></pre></td></tr></tbody></table></figure>
+<li><p>下载源码</p>
+</li>
+<li><p>进入到项目的resources资源目录下</p>
+<blockquote>
+<p>rocketmq-dashboard\src\main\resources</p>
+</blockquote>
+</li>
+<li><p>编辑application.yml配置文件，配置控制台的端口号和nameServer地址。</p>
+<img src="/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/9a00bc614ed787fe1cbf8fe8a92e23c2.png" class="" title="配置文件">
+</li>
+<li><p>在项目根目录下打开git命令窗,执行<code>mvn clean package -Dmaven.test.skip=true</code></p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin<span class="meta">@DESKTOP</span>-G6MAR8U MINGW64 /d/Program/rocketmq-dashboard (master)</span><br><span class="line">$ mvn clean <span class="keyword">package</span> -Dmaven.test.skip=<span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
 
-<ol start="2">
-<li>更新<em>Path</em>变量</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//maven的安装目录（D:\Program Files\maven\apache-maven-3.9.5）</span></span><br><span class="line">setx PATH <span class="string">"%JAVA_HOME%\bin;D:\Program Files\maven\apache-maven-3.9.5\bin;%PATH%"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>**注意：**在这里可能会打包失败，</p>
+<p>具体异常：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:<span class="number">1.11</span><span class="number">.3</span>:yarn (yarn install) on project rocketmq-dashboard: Failed to run task: <span class="string">'yarn install'</span> failed. org.apache.commons.exec.ExecuteException: Process exited with an error: <span class="number">1</span> (Exit value: <span class="number">1</span>) -&gt; [Help <span class="number">1</span>]</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e <span class="keyword">switch</span>.</span><br><span class="line">[ERROR] Re-run Maven using the -X <span class="keyword">switch</span> to enable full debug logging.</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help <span class="number">1</span>] http:<span class="comment">//cwiki.apache.org/confluence/display/MAVEN/MojoFailureException</span></span><br></pre></td></tr></tbody></table></figure>
 
-<ol start="3">
-<li><em>关闭并重新打开命令提示符</em>，然后运行以下命令验证配置：</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">mvn -version</span><br></pre></td></tr></tbody></table></figure>
+<p>解决方法：</p>
+<p>打开项目中的pom.xml文件，注释以下两个插件</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--    &lt;plugin&gt;</span></span><br><span class="line"><span class="comment">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span></span><br><span class="line"><span class="comment">                &lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">                &lt;version&gt;2.17&lt;/version&gt;</span></span><br><span class="line"><span class="comment">                &lt;executions&gt;</span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;validate&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;phase&gt;validate&lt;/phase&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;excludes&gt;src/main/resources&lt;/excludes&gt;</span></span><br><span class="line"><span class="comment">                            &lt;configLocation&gt;style/rmq_checkstyle.xml&lt;/configLocation&gt;</span></span><br><span class="line"><span class="comment">                            &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span></span><br><span class="line"><span class="comment">                            &lt;consoleOutput&gt;true&lt;/consoleOutput&gt;</span></span><br><span class="line"><span class="comment">                            &lt;failsOnError&gt;true&lt;/failsOnError&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;check&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment">                &lt;/executions&gt;</span></span><br><span class="line"><span class="comment">            &lt;/plugin&gt;</span></span><br><span class="line"><span class="comment">			--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--    &lt;plugin&gt;</span></span><br><span class="line"><span class="comment">                &lt;groupId&gt;com.github.eirslett&lt;/groupId&gt;</span></span><br><span class="line"><span class="comment">                &lt;artifactId&gt;frontend-maven-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">                &lt;version&gt;1.11.3&lt;/version&gt;</span></span><br><span class="line"><span class="comment">                &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;workingDirectory&gt;frontend&lt;/workingDirectory&gt;</span></span><br><span class="line"><span class="comment">                    &lt;installDirectory&gt;target&lt;/installDirectory&gt;</span></span><br><span class="line"><span class="comment">                &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                &lt;executions&gt;</span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;install node and yarn&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;install-node-and-yarn&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;nodeVersion&gt;v16.2.0&lt;/nodeVersion&gt;</span></span><br><span class="line"><span class="comment">                            &lt;yarnVersion&gt;v1.22.10&lt;/yarnVersion&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;yarn install&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;yarn&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;arguments&gt;install&lt;/arguments&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;yarn build&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;yarn&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;arguments&gt;build&lt;/arguments&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment">                &lt;/executions&gt;</span></span><br><span class="line"><span class="comment">            &lt;/plugin&gt; </span></span><br><span class="line"><span class="comment">		--&gt;</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
+<p>还有另一异常：</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-antrun-plugin:<span class="number">1.8</span>:run (<span class="keyword">default</span>) on project rocketmq-dashboard: An Ant BuildException has occured: D:\ProgramFiles\RocketMQ\rocketmq-dashboard\frontend\build does not exist.</span><br><span class="line">[ERROR] around Ant part ...&lt;copy todir=<span class="string">"D:\ProgramFiles\RocketMQ\rocketmq-dashboard\target/classes/public"</span>&gt;... @ <span class="number">4</span>:<span class="number">83</span> in D:\ProgramFiles\RocketMQ\rocketmq-dashboard\target\antrun\build-main.xml</span><br></pre></td></tr></tbody></table></figure>
+
+<p>解决：在 rocketmq-dashboard\frontend 建一个build文件夹，然后再target目录下，建一个classes文件夹,classes下再建一个public文件夹</p>
+</li>
+<li><p>执行mvn命令</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install -Dmaven.test.skip=<span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>执行成功后，target目录下会有一个jar包，然后执行java命令运行就可以了。</p>
+</li>
+<li><p>访问：127.0.0.1:9998  (jar运行的服务器地址 : xml中配置的端口号）</p>
+<img src="/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/bf119b4fad7460459535238ed6ddc43d.png" class="" title="可视化界面">
+
+<p>相关文章链接：<br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45515766/article/details/126360526">https://blog.csdn.net/qq_45515766/article/details/126360526</a><br> <a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaoyiny/article/details/132134052">https://blog.csdn.net/xiaoyiny/article/details/132134052</a></p>
+</li>
+</ol>
 
                 
             </div>
@@ -525,7 +546,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://leejiezh.github.io/2024/06/06/mvn%E5%91%BD%E4%BB%A4%E6%8A%A5%E6%B2%A1%E6%9C%89%E9%85%8D%E7%BD%AEjdk%E7%8E%AF%E5%A2%83/">https://leejiezh.github.io/2024/06/06/mvn%E5%91%BD%E4%BB%A4%E6%8A%A5%E6%B2%A1%E6%9C%89%E9%85%8D%E7%BD%AEjdk%E7%8E%AF%E5%A2%83/</a>
+                    <a href="https://leejiezh.github.io/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/">https://leejiezh.github.io/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -563,8 +584,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/maven/">
-                                    <span class="chip bg-color">maven</span>
+                                <a href="/tags/rocketmq/">
+                                    <span class="chip bg-color">rocketmq</span>
                                 </a>
                             
                         </div>
@@ -609,7 +630,7 @@
         repo: 'leejiezh.github.io',
         owner: 'leejiezh',
         admin: "leejiezh",
-        id: '2024-06-06T14-47-45',
+        id: '2024-06-06T16-04-58',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -635,9 +656,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/">
                     <div class="card-image">
@@ -655,9 +677,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2024-06-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -670,6 +692,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -688,13 +711,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2024/05/25/Spring-Bean-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
+                <a href="/2024/06/06/mvn%E5%91%BD%E4%BB%A4%E6%8A%A5%E6%B2%A1%E6%9C%89%E9%85%8D%E7%BD%AEjdk%E7%8E%AF%E5%A2%83/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Spring Bean 生命周期">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="mvn命令报没有配置jdk环境">
                         
-                        <span class="card-title">Spring Bean 生命周期</span>
+                        <span class="card-title">mvn命令报没有配置jdk环境</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -705,7 +728,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-05-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-06
                             </span>
                         <span class="publish-author">
                             
@@ -722,8 +745,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/spring/">
-                        <span class="chip bg-color">spring</span>
+                    <a href="/tags/maven/">
+                        <span class="chip bg-color">maven</span>
                     </a>
                     
                 </div>
