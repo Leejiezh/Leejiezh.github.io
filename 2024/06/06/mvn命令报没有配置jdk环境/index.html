@@ -467,7 +467,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    175
+                    174
                 </div>
                 
 
@@ -479,6 +479,9 @@
         <hr class="clearfix">
 
         
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
+        
 
         
 
@@ -486,23 +489,28 @@
             <div id="articleContent">
                 <h1 id="mvn-命令报没有配置jdk环境"><a href="#mvn-命令报没有配置jdk环境" class="headerlink" title="mvn 命令报没有配置jdk环境"></a>mvn 命令报没有配置jdk环境</h1><p>jdk环境变量配置没问题，并且java -version 也正常显示。</p>
 <p>执行mvn -v 报错误：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/d/Program Files/maven/apache-maven-3.9.5/bin/mvn: line 93: cd: C:\Program Files\Java\jdk-19;: No such file or directory</span><br><span class="line">The JAVA_HOME environment variable is not defined correctly,</span><br><span class="line">this environment variable is needed to run this program.</span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-none"><code class="language-none">/d/Program Files/maven/apache-maven-3.9.5/bin/mvn: line 93: cd: C:\Program Files\Java\jdk-19;: No such file or directory
+The JAVA_HOME environment variable is not defined correctly,
+this environment variable is needed to run this program.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>解决方法：</strong></p>
 <ol>
 <li>命令行设置<em>JAVA_HOME</em></li>
 </ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//自己本机jdk安装目录（C:\Program Files\Java\jdk-19）</span></span><br><span class="line">setx JAVA_HOME <span class="string">"C:\Program Files\Java\jdk-19"</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//自己本机jdk安装目录（C:\Program Files\Java\jdk-19）</span>
+setx <span class="token constant">JAVA_HOME</span> <span class="token string">"C:\Program Files\Java\jdk-19"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ol start="2">
 <li>更新<em>Path</em>变量</li>
 </ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//maven的安装目录（D:\Program Files\maven\apache-maven-3.9.5）</span></span><br><span class="line">setx PATH <span class="string">"%JAVA_HOME%\bin;D:\Program Files\maven\apache-maven-3.9.5\bin;%PATH%"</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//maven的安装目录（D:\Program Files\maven\apache-maven-3.9.5）</span>
+setx <span class="token constant">PATH</span> <span class="token string">"%JAVA_HOME%\bin;D:\Program Files\maven\apache-maven-3.9.5\bin;%PATH%"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <ol start="3">
 <li><em>关闭并重新打开命令提示符</em>，然后运行以下命令验证配置：</li>
 </ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br><span class="line">mvn -version</span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">java <span class="token operator">-</span>version
+mvn <span class="token operator">-</span>version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 
                 
@@ -741,6 +749,43 @@
 
 </div>
 
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: lee-blog<br />'
+            + '文章作者: Leejie<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
 
 
 <!-- 代码块功能依赖 -->

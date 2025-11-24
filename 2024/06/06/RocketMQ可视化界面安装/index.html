@@ -467,7 +467,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    800
+                    797
                 </div>
                 
 
@@ -478,6 +478,9 @@
         </div>
         <hr class="clearfix">
 
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.css">
         
 
         
@@ -499,23 +502,94 @@
 <img src="/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/9a00bc614ed787fe1cbf8fe8a92e23c2.png" class="" title="配置文件">
 </li>
 <li><p>在项目根目录下打开git命令窗,执行<code>mvn clean package -Dmaven.test.skip=true</code></p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin<span class="meta">@DESKTOP</span>-G6MAR8U MINGW64 /d/Program/rocketmq-dashboard (master)</span><br><span class="line">$ mvn clean <span class="keyword">package</span> -Dmaven.test.skip=<span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">admin<span class="token annotation punctuation">@DESKTOP</span><span class="token operator">-</span><span class="token constant">G6MAR8U</span> <span class="token constant">MINGW64</span> <span class="token operator">/</span>d<span class="token operator">/</span><span class="token class-name">Program</span><span class="token operator">/</span>rocketmq<span class="token operator">-</span>dashboard <span class="token punctuation">(</span>master<span class="token punctuation">)</span>
+$ mvn clean <span class="token keyword">package</span> <span class="token operator">-</span><span class="token class-name">Dmaven</span><span class="token punctuation">.</span>test<span class="token punctuation">.</span>skip<span class="token operator">=</span><span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>**注意：**在这里可能会打包失败，</p>
 <p>具体异常：</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Failed to execute goal com.github.eirslett:frontend-maven-plugin:<span class="number">1.11</span><span class="number">.3</span>:yarn (yarn install) on project rocketmq-dashboard: Failed to run task: <span class="string">'yarn install'</span> failed. org.apache.commons.exec.ExecuteException: Process exited with an error: <span class="number">1</span> (Exit value: <span class="number">1</span>) -&gt; [Help <span class="number">1</span>]</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] To see the full stack trace of the errors, re-run Maven with the -e <span class="keyword">switch</span>.</span><br><span class="line">[ERROR] Re-run Maven using the -X <span class="keyword">switch</span> to enable full debug logging.</span><br><span class="line">[ERROR]</span><br><span class="line">[ERROR] For more information about the errors and possible solutions, please read the following articles:</span><br><span class="line">[ERROR] [Help <span class="number">1</span>] http:<span class="comment">//cwiki.apache.org/confluence/display/MAVEN/MojoFailureException</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> <span class="token class-name">Failed</span> <span class="token keyword">to</span> <span class="token namespace">execute</span> goal com<span class="token punctuation">.</span>github<span class="token punctuation">.</span>eirslett<span class="token operator">:</span>frontend<span class="token operator">-</span>maven<span class="token operator">-</span>plugin<span class="token operator">:</span><span class="token number">1.11</span><span class="token number">.3</span><span class="token operator">:</span>yarn <span class="token punctuation">(</span>yarn install<span class="token punctuation">)</span> on project rocketmq<span class="token operator">-</span>dashboard<span class="token operator">:</span> <span class="token class-name">Failed</span> <span class="token keyword">to</span> <span class="token namespace">run</span> task<span class="token operator">:</span> 'yarn install' <span class="token class-name"><span class="token namespace">failed<span class="token punctuation">.</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>commons<span class="token punctuation">.</span>exec<span class="token punctuation">.</span></span>ExecuteException</span><span class="token operator">:</span> <span class="token class-name">Process</span> exited <span class="token keyword">with</span> <span class="token namespace">an</span> error<span class="token operator">:</span> <span class="token number">1</span> <span class="token punctuation">(</span><span class="token class-name">Exit</span> value<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-&gt;</span> <span class="token punctuation">[</span><span class="token class-name">Help</span> <span class="token number">1</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> <span class="token class-name">To</span> see the full stack trace of the errors<span class="token punctuation">,</span> re<span class="token operator">-</span>run <span class="token class-name">Maven</span> <span class="token keyword">with</span> <span class="token namespace">the</span> <span class="token operator">-</span>e <span class="token keyword">switch</span><span class="token punctuation">.</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> <span class="token class-name">Re</span><span class="token operator">-</span>run <span class="token class-name">Maven</span> using the <span class="token operator">-</span><span class="token class-name">X</span> <span class="token keyword">switch</span> <span class="token keyword">to</span> <span class="token namespace">enable</span> full debug logging<span class="token punctuation">.</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> <span class="token class-name">For</span> more information about the errors and possible solutions<span class="token punctuation">,</span> please read the following articles<span class="token operator">:</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token class-name">Help</span> <span class="token number">1</span><span class="token punctuation">]</span> http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>cwiki<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>org<span class="token operator">/</span>confluence<span class="token operator">/</span>display<span class="token operator">/</span><span class="token constant">MAVEN</span><span class="token operator">/</span><span class="token class-name">MojoFailureException</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>解决方法：</p>
 <p>打开项目中的pom.xml文件，注释以下两个插件</p>
-<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--    &lt;plugin&gt;</span></span><br><span class="line"><span class="comment">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span></span><br><span class="line"><span class="comment">                &lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">                &lt;version&gt;2.17&lt;/version&gt;</span></span><br><span class="line"><span class="comment">                &lt;executions&gt;</span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;validate&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;phase&gt;validate&lt;/phase&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;excludes&gt;src/main/resources&lt;/excludes&gt;</span></span><br><span class="line"><span class="comment">                            &lt;configLocation&gt;style/rmq_checkstyle.xml&lt;/configLocation&gt;</span></span><br><span class="line"><span class="comment">                            &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span></span><br><span class="line"><span class="comment">                            &lt;consoleOutput&gt;true&lt;/consoleOutput&gt;</span></span><br><span class="line"><span class="comment">                            &lt;failsOnError&gt;true&lt;/failsOnError&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;check&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment">                &lt;/executions&gt;</span></span><br><span class="line"><span class="comment">            &lt;/plugin&gt;</span></span><br><span class="line"><span class="comment">			--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--    &lt;plugin&gt;</span></span><br><span class="line"><span class="comment">                &lt;groupId&gt;com.github.eirslett&lt;/groupId&gt;</span></span><br><span class="line"><span class="comment">                &lt;artifactId&gt;frontend-maven-plugin&lt;/artifactId&gt;</span></span><br><span class="line"><span class="comment">                &lt;version&gt;1.11.3&lt;/version&gt;</span></span><br><span class="line"><span class="comment">                &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;workingDirectory&gt;frontend&lt;/workingDirectory&gt;</span></span><br><span class="line"><span class="comment">                    &lt;installDirectory&gt;target&lt;/installDirectory&gt;</span></span><br><span class="line"><span class="comment">                &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                &lt;executions&gt;</span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;install node and yarn&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;install-node-and-yarn&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;nodeVersion&gt;v16.2.0&lt;/nodeVersion&gt;</span></span><br><span class="line"><span class="comment">                            &lt;yarnVersion&gt;v1.22.10&lt;/yarnVersion&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;yarn install&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;yarn&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;arguments&gt;install&lt;/arguments&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment">                    &lt;execution&gt;</span></span><br><span class="line"><span class="comment">                        &lt;id&gt;yarn build&lt;/id&gt;</span></span><br><span class="line"><span class="comment">                        &lt;goals&gt;</span></span><br><span class="line"><span class="comment">                            &lt;goal&gt;yarn&lt;/goal&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/goals&gt;</span></span><br><span class="line"><span class="comment">                        &lt;configuration&gt;</span></span><br><span class="line"><span class="comment">                            &lt;arguments&gt;build&lt;/arguments&gt;</span></span><br><span class="line"><span class="comment">                        &lt;/configuration&gt;</span></span><br><span class="line"><span class="comment">                    &lt;/execution&gt;</span></span><br><span class="line"><span class="comment">                &lt;/executions&gt;</span></span><br><span class="line"><span class="comment">            &lt;/plugin&gt; </span></span><br><span class="line"><span class="comment">		--&gt;</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!--    &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-checkstyle-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.17&lt;/version&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;validate&lt;/id&gt;
+                        &lt;phase&gt;validate&lt;/phase&gt;
+                        &lt;configuration&gt;
+                            &lt;excludes&gt;src/main/resources&lt;/excludes&gt;
+                            &lt;configLocation&gt;style/rmq_checkstyle.xml&lt;/configLocation&gt;
+                            &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+                            &lt;consoleOutput&gt;true&lt;/consoleOutput&gt;
+                            &lt;failsOnError&gt;true&lt;/failsOnError&gt;
+                        &lt;/configuration&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;check&lt;/goal&gt;
+                        &lt;/goals&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;
+   --&gt;</span>
+<span class="token comment">&lt;!--    &lt;plugin&gt;
+                &lt;groupId&gt;com.github.eirslett&lt;/groupId&gt;
+                &lt;artifactId&gt;frontend-maven-plugin&lt;/artifactId&gt;
+                &lt;version&gt;1.11.3&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;workingDirectory&gt;frontend&lt;/workingDirectory&gt;
+                    &lt;installDirectory&gt;target&lt;/installDirectory&gt;
+                &lt;/configuration&gt;
+                &lt;executions&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;install node and yarn&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;install-node-and-yarn&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;nodeVersion&gt;v16.2.0&lt;/nodeVersion&gt;
+                            &lt;yarnVersion&gt;v1.22.10&lt;/yarnVersion&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+
+                    &lt;execution&gt;
+                        &lt;id&gt;yarn install&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;yarn&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;arguments&gt;install&lt;/arguments&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;yarn build&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;yarn&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;arguments&gt;build&lt;/arguments&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt; 
+  --&gt;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>还有另一异常：</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-antrun-plugin:<span class="number">1.8</span>:run (<span class="keyword">default</span>) on project rocketmq-dashboard: An Ant BuildException has occured: D:\ProgramFiles\RocketMQ\rocketmq-dashboard\frontend\build does not exist.</span><br><span class="line">[ERROR] around Ant part ...&lt;copy todir=<span class="string">"D:\ProgramFiles\RocketMQ\rocketmq-dashboard\target/classes/public"</span>&gt;... @ <span class="number">4</span>:<span class="number">83</span> in D:\ProgramFiles\RocketMQ\rocketmq-dashboard\target\antrun\build-main.xml</span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> <span class="token class-name">Failed</span> <span class="token keyword">to</span> <span class="token namespace">execute</span> goal org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>maven<span class="token punctuation">.</span>plugins<span class="token operator">:</span>maven<span class="token operator">-</span>antrun<span class="token operator">-</span>plugin<span class="token operator">:</span><span class="token number">1.8</span><span class="token operator">:</span>run <span class="token punctuation">(</span><span class="token keyword">default</span><span class="token punctuation">)</span> on project rocketmq<span class="token operator">-</span>dashboard<span class="token operator">:</span> <span class="token class-name">An</span> <span class="token class-name">Ant</span> <span class="token class-name">BuildException</span> has occured<span class="token operator">:</span> <span class="token class-name">D</span><span class="token operator">:</span>\<span class="token class-name">ProgramFiles</span>\<span class="token class-name">RocketMQ</span>\rocketmq<span class="token operator">-</span>dashboard\frontend\build does not exist<span class="token punctuation">.</span>
+<span class="token punctuation">[</span><span class="token constant">ERROR</span><span class="token punctuation">]</span> around <span class="token class-name">Ant</span> part <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>&lt;copy todir<span class="token operator">=</span><span class="token string">"D:\ProgramFiles\RocketMQ\rocketmq-dashboard\target/classes/public"</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> @ <span class="token number">4</span><span class="token operator">:</span><span class="token number">83</span> in <span class="token class-name">D</span><span class="token operator">:</span>\<span class="token class-name">ProgramFiles</span>\<span class="token class-name">RocketMQ</span>\rocketmq<span class="token operator">-</span>dashboard\target\antrun\build<span class="token operator">-</span>main<span class="token punctuation">.</span>xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>解决：在 rocketmq-dashboard\frontend 建一个build文件夹，然后再target目录下，建一个classes文件夹,classes下再建一个public文件夹</p>
 </li>
 <li><p>执行mvn命令</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install -Dmaven.test.skip=<span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">mvn install <span class="token operator">-</span><span class="token class-name">Dmaven</span><span class="token punctuation">.</span>test<span class="token punctuation">.</span>skip<span class="token operator">=</span><span class="token boolean">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>执行成功后，target目录下会有一个jar包，然后执行java命令运行就可以了。</p>
 </li>
@@ -764,6 +838,43 @@
 
 </div>
 
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: lee-blog<br />'
+            + '文章作者: Leejie<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
 
 
 <!-- 代码块功能依赖 -->
