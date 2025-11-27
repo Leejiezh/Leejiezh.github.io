@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="ceshi02, lee-blog">
+    <meta name="keywords" content="Redis, lee-blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>ceshi02 | lee-blog</title>
+    <title>Redis | lee-blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -312,7 +312,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e';
+        let pwd = '';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -325,12 +325,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">ceshi02</h1>
+                    <h1 class="description center-align post-title">Redis</h1>
                 </div>
             </div>
         </div>
@@ -444,12 +444,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/redis/">
+                                <span class="chip bg-color">redis</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                后端
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -458,7 +471,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2025-11-24
+                    2022-06-12
                 </div>
                 
 
@@ -467,7 +480,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    12
+                    3.1k
                 </div>
                 
 
@@ -487,7 +500,145 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="「深度来自积累，能力来自坚持。」"><a href="#「深度来自积累，能力来自坚持。」" class="headerlink" title="「深度来自积累，能力来自坚持。」"></a>「深度来自积累，能力来自坚持。」</h1>
+                <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><p><strong>redis有哪些数据类型？</strong></p>
+<p>String，List，Set，Zset，Hash</p>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><p><strong>什么是redis持久化？</strong></p>
+<p>持久化就是把内存的数据写到磁盘中，防止服务宕机了，导致内存数据丢失。</p>
+<p><strong>Redis的持久化机制是什么？</strong></p>
+<p>redis提供了两种持久化机制 RDB 和 AOF机制。</p>
+<ul>
+<li><p><strong>RDB：</strong></p>
+<p>redis默认的持久化方式，按照一定的时间将内存的数据以<em><strong>快照</strong></em>的形式保存到硬盘中，对应产出的数据文件为dump.rdb。通过配置文件中的save参数来定义快照的周期。</p>
+<p>优点：</p>
+<p>只有一个文件dump.rdb，方便持久化。</p>
+<p>容灾性好，一个文件可以保存到安全的磁盘。</p>
+<p>性能最大化，fork子进程来完成写操作，让主进程继续处理命令，所以是IO最大化，使用单独进程来进行持久化，主进程不会进行任何IO操作，保证了redis的高性能。</p>
+<p>相对于数据集大时，比AOF的启动效率更高。</p>
+<p>缺点：</p>
+<p>数据安全性低，RDB是间隔一段时间进行持久化，如果持久化之间redis发生故障，会发生数据丢失。</p>
+<p>AOF持久化方式：是指所有命令行记录以redis命令请求协议的格式完成持久化存储，保存为AOF文件。</p>
+</li>
+<li><p><strong>AOF</strong></p>
+<p>AOF持久化，则是将redis的执行每次写命令记录到单独的日志文件中，当重启redis会重新将持久化的日志中文件恢复数据。</p>
+<p>当两种方式同时开启时，数据恢复redis会优先选择AOF恢复。</p>
+<p>优点：</p>
+<p>数据安全，aof持久化可以配置appendfsync 属性，有always。每进行一次命令操作就记录到aof文件中一次。</p>
+<p>通过append模式写文件，即使中途服务器宕机，可以通过redis-check-aof 工具解决数据一致性问题。</p>
+<p>AOF机制的rewrite模式，AOF文件没被rewrite之前，可以删除其中的某些命令。</p>
+<p>缺点：</p>
+<p>AOF文件比RDB文件大，且恢复速度慢。</p>
+<p>数据集大的时候，比rdb启动效率低。</p>
+</li>
+</ul>
+<p><strong>两个持久性方式的区别：</strong></p>
+<ul>
+<li>AOF文件比RDB更新频率高，优先使用AOF还原数据。</li>
+<li>AOF比RDB更安全也更大</li>
+<li>RDB性能比AOF好</li>
+<li>如果两个都配了优先加载AOF</li>
+</ul>
+<h3 id="内存相关"><a href="#内存相关" class="headerlink" title="内存相关"></a>内存相关</h3><p><strong>redis中数据如何保证都是热点数据？</strong></p>
+<p>redis内存数据集大熊啊上升到一定大小的时候，就会实行数据淘汰策略。</p>
+<p><strong>redis内存淘汰策略</strong></p>
+<p>全局的见空间选择性移除</p>
+<ul>
+<li>noeviction：当内存不足以容纳新写入数据时，新写入操作会报错。</li>
+<li>allkeys-lru：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的key。</li>
+<li>allkeys-random：当内存不足以容纳新写入数据时，在键空间中，随机移除某个key。</li>
+</ul>
+<p>设置过期时间的键空间选择性移除：</p>
+<ul>
+<li>volatile-lru：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，移除最近最少使用的key。</li>
+<li>volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个key。</li>
+<li>volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的key优先移除。</li>
+</ul>
+<h3 id="redis事务"><a href="#redis事务" class="headerlink" title="redis事务"></a>redis事务</h3><h3 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h3><h4 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h4>
+
+<p>哨兵模式主要是用于实现redis集群的高可用。</p>
+<ol>
+<li>集群监控：负责监控redis master 和 slave 进程是否正常工作。</li>
+<li>消息通知：如果redis实例有故障，那么哨兵负责发送消息作为报警通知给管理员，</li>
+<li>故障转移：如果master node 挂掉，会自动转移到 slave node上。</li>
+<li>配置中心：如果故障转移发生了，通知client客服端新的 master地址。</li>
+</ol>
+<p>核心：</p>
+<ol>
+<li>哨兵至少需要3个实例，保证自己的健壮性。</li>
+<li>哨兵+redis 主从的部署架构，是不保证数据零丢失的，只能保证redis集群的高可用性。</li>
+</ol>
+<h4 id="Redis-Cluster"><a href="#Redis-Cluster" class="headerlink" title="Redis Cluster"></a>Redis Cluster</h4><p>redis cluster 是一种服务端Sharding技术，3.0版本开始正式提供。redis cluster并没有使用一致性hash，而是采用slot的概念，一种分成16384个槽。将请求发送到任意节点，接收到请求的节点会将查询请求发送到正确的节点上执行。</p>
+<p>方案说明：</p>
+<ol>
+<li>通过哈希的方式，将数据分片，每个节点均分存储一定哈希槽(哈希值)区间的数据，默认分赔了16384个槽位。</li>
+<li>每份数据分片会存储在多个互为主从的多节点上。</li>
+<li>数据写入先写主节点，在同步到从节点(支持配置为阻塞同步)</li>
+<li>同一分片多个节点间的数据不保持一致性。</li>
+<li>读取数据时，当客服端操作的key没有分配在该节点上时，redis会返回转向指令，指向正确的节点</li>
+<li>扩容时需要把就节点数据迁移的一部分到新节点。</li>
+</ol>
+<p><strong>分布式寻址算法</strong></p>
+<ul>
+<li>hash算法</li>
+<li>一致性hash算法 （自动缓存迁移）+ 虚拟节点（自动负载均衡）</li>
+<li>redis cluster 的 hash slot 算法</li>
+</ul>
+<h4 id="Redis主从架构"><a href="#Redis主从架构" class="headerlink" title="Redis主从架构"></a>Redis主从架构</h4><p>对于缓存来说，一般都是用来支撑读高并发的，因此架构做成主从架构，一主多从，主负责写，并且将数据复制到其他的slave节点，从节点负责读。所有的读请求全部走从节点。轻松实现水平扩容，支撑读高并发。</p>
+<p>redis replication -&gt; 主从架构 -&gt; 读写分离 -&gt; 水平扩容支撑读高并发、</p>
+<p><strong>redis主从复制的核心原理</strong></p>
+<p>当启动一个从节点的时候，他会发送一个<code>PSYNC</code> 命令给 主节点。</p>
+<p>如果这是 从节点 初次连接到主节点，那么会触发一次 <code>full resynchronization</code> 全量复制。此时 master 会启动一个后台线程，开始生成一份 <code>RDB</code> 快照文件。</p>
+<p>同时还会将从客户端 client 新收到的所有写命令缓存在内存中。<code>RDB</code> 文件生成完毕后， master 会将这个 <code>RDB</code> 发送给 slave，slave 会先<strong>写入本地磁盘，然后再从本地磁盘加载到内存</strong>中，</p>
+<p>接着master会将内存中缓存的写命令发送到slave，slave也会同步这些数据。</p>
+
+
+<p>过程原理</p>
+<ol>
+<li>当从库和主库建立MS关系后，会向主数据库发送SYNC命令</li>
+<li>主库接收到SYNC命令后会开始在后台保存快照(RDB持久化过程)，并将期间接收到的写命令缓存起来</li>
+<li>当快照完成后，主Redis会将快照文件和所有缓存的写命令发送给从Redis</li>
+<li>从Redis接收到后，会载入快照文件并且执行收到的缓存的命令</li>
+<li>之后，主Redis每当接收到写命令时就会将命令发送从Redis，从而保证数据的一致</li>
+</ol>
+<h4 id="redis集群会有写操作丢失吗？"><a href="#redis集群会有写操作丢失吗？" class="headerlink" title="redis集群会有写操作丢失吗？"></a><strong>redis集群会有写操作丢失吗？</strong></h4><p>因为redis不能保证数据的强一致性，所以会存在丢失写操作。</p>
+<h4 id="Redis是单线程的，如何提高多核CPU的利用率？"><a href="#Redis是单线程的，如何提高多核CPU的利用率？" class="headerlink" title="Redis是单线程的，如何提高多核CPU的利用率？"></a>Redis是单线程的，如何提高多核CPU的利用率？</h4><p>可以在同一个服务器部署多个Redis的实例，并把他们当作不同的服务器来使用，在某些时候，无论如何一个服务器是不够的， 所以，如果你想使用多个CPU，你可以考虑一下分片（shard）。</p>
+<h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h4><p>redis为单进程单线程模式，采用队列模式将并发访问编程串行访问，且多客服端对redis的连接并不存在竞争关系，Redis中可以使用SETNX命令实现分布式锁。</p>
+<p>使用SETNX完成同步锁的流程：</p>
+<p>使用SETNX命令获取锁，若返回0（key已存在，锁已存在）则获取失败，反之获取成功</p>
+<p>为了防止获取锁后程序出现异常，导致其他线程/进程调用SETNX命令总是返回0而进入死锁状态，需要为该key设置一个“合理”的过期时间</p>
+<p>释放锁，使用DEL命令将锁数据删除</p>
+<h4 id="什么是-RedLock"><a href="#什么是-RedLock" class="headerlink" title="什么是 RedLock"></a>什么是 RedLock</h4><p>Redis 官方站提出了一种权威的基于 Redis 实现分布式锁的方式名叫 Redlock，此种方式比原先的单节点的方法更安全。它可以保证以下特性：</p>
+<ol>
+<li>安全特性：互斥访问，即永远只有一个 client 能拿到锁</li>
+<li>避免死锁：最终 client 都可能拿到锁，不会出现死锁的情况，即使原本锁住某资源的 client crash 了或者出现了网络分区</li>
+<li>容错性：只要大部分 Redis 节点存活就可以正常提供服务</li>
+</ol>
+<h3 id="缓存异常"><a href="#缓存异常" class="headerlink" title="缓存异常"></a>缓存异常</h3><h4 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h4><p>缓存雪崩是指缓存同一时间大面积的失效，后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方案：</p>
+<ol>
+<li>缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。</li>
+<li>一般并发量不是特别多的时候，使用最多的解决方案时加锁排队。</li>
+<li>给每个缓存数据增加相应的缓存标记，记录缓存是否失效，如果缓存标记失效，则更新数据缓存。</li>
+</ol>
+<h4 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h4><p>缓存穿透是指缓存和数据库中都没有的数据，导致所有的请求都落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
+<p>解决方案：</p>
+<ol>
+<li>接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;=0的直接拦截。</li>
+<li>从缓存取不到，在数据库中也没有取到的数据，可以将key-value对写为key-null，缓存有效时间可以设置短一点。这样可以防止攻击用户反复用同一个id暴力攻击。</li>
+<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</li>
+</ol>
+<p><strong>布隆过滤器</strong></p>
+<p>引入了k(k&gt;1)个相互独立的哈希函数，保证在给定的空间、误判率下，完成元素判重的过程。</p>
+<p>他的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。</p>
+<p>Bloom-Filter算法的核心思想就是利用多个不同的Hash函数来解决“冲突”。<br>Hash存在一个冲突（碰撞）的问题，用同一个Hash得到的两个URL的值有可能相同。为了减少冲突，我们可以多引入几个Hash，如果通过其中的一个Hash值我们得出某元素不在集合中，那么该元素肯定不在集合中。只有在所有的Hash函数告诉我们该元素在集合中时，才能确定该元素存在于集合中。这便是Bloom-Filter的基本思想。<br>Bloom-Filter一般用于在大数据量的集合中判定某元素是否存在。</p>
+<h4 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h4><p>缓存击穿是指缓存中没有但数据库中存在的数据。这时由于并发用户特别多，同时都缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力。</p>
+<p>解决方案：</p>
+<ol>
+<li>设置热点数据永不过期</li>
+<li>加互斥锁</li>
+</ol>
+<h4 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h4><p>缓存预热就是系统上线后，将相关的缓存数据直接加载到缓存系统。这样就可以避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题。</p>
+<h4 id="缓存热点key"><a href="#缓存热点key" class="headerlink" title="缓存热点key"></a>缓存热点key</h4><p>缓存中的一个Key(比如一个促销商品)，在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+
                 
             </div>
             <hr/>
@@ -513,7 +664,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://leejiezh.github.io/2025/11/24/ceshi02/">https://leejiezh.github.io/2025/11/24/ceshi02/</a>
+                    <a href="https://leejiezh.github.io/2022/06/12/Redis/">https://leejiezh.github.io/2022/06/12/Redis/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -550,7 +701,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -593,7 +748,7 @@
         repo: 'leejiezh.github.io',
         owner: 'leejiezh',
         admin: "leejiezh",
-        id: '2025-11-24T22-26-07',
+        id: '2022-06-12T14-49-18',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -619,56 +774,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/2025/11/24/ceshi02/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="ceshi02">
-                        
-                        <span class="card-title">ceshi02</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Leejie
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-            </div>
-        </div>
-        
-        
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2024/06/06/RocketMQ%E5%8F%AF%E8%A7%86%E5%8C%96%E7%95%8C%E9%9D%A2%E5%AE%89%E8%A3%85/">
+                <a href="/2022/06/14/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="RocketMQ可视化界面安装">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="分布式事务">
                         
-                        <span class="card-title">RocketMQ可视化界面安装</span>
+                        <span class="card-title">分布式事务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -678,9 +794,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2024-06-06
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-14
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -696,8 +812,58 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/rocketmq/">
-                        <span class="chip bg-color">rocketmq</span>
+                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
+                        <span class="chip bg-color">分布式事务</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/12/Redis/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Redis">
+                        
+                        <span class="card-title">Redis</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
+                                    后端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>
