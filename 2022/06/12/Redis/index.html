@@ -552,7 +552,7 @@
 <li>volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个key。</li>
 <li>volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的key优先移除。</li>
 </ul>
-<h3 id="redis事务"><a href="#redis事务" class="headerlink" title="redis事务"></a>redis事务</h3><h3 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h3><h4 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h4>
+<h3 id="redis事务"><a href="#redis事务" class="headerlink" title="redis事务"></a>redis事务</h3><h3 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h3><h4 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h4><img src="/2022/06/12/Redis/be7488a06f83bce9305b65a85c29e8ee.png" class="" title="哨兵模式流程图">
 
 <p>哨兵模式主要是用于实现redis集群的高可用。</p>
 <ol>
@@ -589,7 +589,7 @@
 <p>如果这是 从节点 初次连接到主节点，那么会触发一次 <code>full resynchronization</code> 全量复制。此时 master 会启动一个后台线程，开始生成一份 <code>RDB</code> 快照文件。</p>
 <p>同时还会将从客户端 client 新收到的所有写命令缓存在内存中。<code>RDB</code> 文件生成完毕后， master 会将这个 <code>RDB</code> 发送给 slave，slave 会先<strong>写入本地磁盘，然后再从本地磁盘加载到内存</strong>中，</p>
 <p>接着master会将内存中缓存的写命令发送到slave，slave也会同步这些数据。</p>
-
+<img src="/2022/06/12/Redis/be7488a06f83bce9305b65a85c29e8ee.png" class="" title="持久化流程图">
 
 <p>过程原理</p>
 <ol>
