@@ -390,19 +390,10 @@
                 </a>
                 
                 
-                <a href="/tags/rocketmq/" title="rocketmq: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-active "
-                            data-tagname="rocketmq" style="background-color: #E8F8F5;">rocketmq
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
                 <a href="/tags/spring/" title="spring: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="spring" style="background-color: #FEF9E7;">spring
+                            data-tagname="spring" style="background-color: #E8F8F5;">spring
                         <span class="tag-length">2</span>
                     </span>
                 </a>
@@ -411,7 +402,16 @@
                 <a href="/tags/maven/" title="maven: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            data-tagname="maven" style="background-color: #F8F9F9;">maven
+                            data-tagname="maven" style="background-color: #FEF9E7;">maven
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/rocketmq/" title="rocketmq: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="rocketmq" style="background-color: #F8F9F9;">rocketmq
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -771,6 +771,31 @@ $(function () {
     <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
     <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
     <script src="/js/matery.js"></script>
+
+    
+    <script src="/libs/mermaid/mermaid.min.js"></script>
+    <script>
+        // 将 ```mermaid 代码块渲染为图表
+        // 页面渲染时 mermaid 代码块是 prism 高亮后的 <pre><code>，这里还原为源码并交给 mermaid 渲染
+        (function () {
+            function renderMermaid() {
+                var codes = document.querySelectorAll('code.language-mermaid');
+                if (!codes.length || !window.mermaid) return;
+                codes.forEach(function (code) {
+                    var pre = code.parentNode;
+                    if (!pre || pre.tagName !== 'PRE') return;
+                    var div = document.createElement('div');
+                    div.className = 'mermaid';
+                    div.textContent = code.textContent.trim();
+                    pre.parentNode.replaceChild(div, pre);
+                });
+                mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose' });
+                mermaid.run();
+            }
+            document.addEventListener('DOMContentLoaded', renderMermaid);
+        })();
+    </script>
+    
 
     <!-- Baidu Analytics -->
 
