@@ -182,6 +182,11 @@ mathjax:
   enable: false
   cdn: https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
+# Mermaid 图表渲染支持
+# 开启后，文章里的 ```mermaid 代码块会被渲染成图表（如流程图、类图、时序图等）
+mermaid:
+  enable: true
+
 # Post word count, reading duration, site total word count.
 # Before you activate, please confirm that you have installed the hexo-wordcount plugin,
 # install the plugin command: `npm i --save hexo-wordcount`.
@@ -457,6 +462,7 @@ libs:
     jqcloud: /libs/jqcloud/jqcloud-1.0.4.min.js
     tocbot: /libs/tocbot/tocbot.min.js
     canvas_nest: /libs/background/canvas-nest.js
+    mermaid: /libs/mermaid/mermaid.min.js
     ribbon: /libs/background/ribbon.min.js
     ribbonRefresh: /libs/background/ribbon-refresh.min.js
     ribbon_dynamic: /libs/background/ribbon-dynamic.js
