@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Redis, lee-blog">
+    <meta name="keywords" content="设计模式-策略&amp;模板, lee-blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Redis | lee-blog</title>
+    <title>设计模式-策略&amp;模板 | lee-blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -325,12 +325,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/%E7%AD%96%E7%95%A5+%E6%A8%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Redis</h1>
+                    <h1 class="description center-align post-title">设计模式-策略&amp;模板</h1>
                 </div>
             </div>
         </div>
@@ -446,8 +446,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/redis/">
-                                <span class="chip bg-color">redis</span>
+                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                <span class="chip bg-color">设计模式</span>
                             </a>
                         
                     </div>
@@ -471,7 +471,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-06-12
+                    2026-08-23
                 </div>
                 
 
@@ -480,7 +480,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>字数:&nbsp;&nbsp;
-                    3.1k
+                    2.2k
                 </div>
                 
 
@@ -500,144 +500,105 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><p><strong>redis有哪些数据类型？</strong></p>
-<p>String，List，Set，Zset，Hash</p>
-<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><p><strong>什么是redis持久化？</strong></p>
-<p>持久化就是把内存的数据写到磁盘中，防止服务宕机了，导致内存数据丢失。</p>
-<p><strong>Redis的持久化机制是什么？</strong></p>
-<p>redis提供了两种持久化机制 RDB 和 AOF机制。</p>
-<ul>
-<li><p><strong>RDB：</strong></p>
-<p>redis默认的持久化方式，按照一定的时间将内存的数据以<em><strong>快照</strong></em>的形式保存到硬盘中，对应产出的数据文件为dump.rdb。通过配置文件中的save参数来定义快照的周期。</p>
-<p>优点：</p>
-<p>只有一个文件dump.rdb，方便持久化。</p>
-<p>容灾性好，一个文件可以保存到安全的磁盘。</p>
-<p>性能最大化，fork子进程来完成写操作，让主进程继续处理命令，所以是IO最大化，使用单独进程来进行持久化，主进程不会进行任何IO操作，保证了redis的高性能。</p>
-<p>相对于数据集大时，比AOF的启动效率更高。</p>
-<p>缺点：</p>
-<p>数据安全性低，RDB是间隔一段时间进行持久化，如果持久化之间redis发生故障，会发生数据丢失。</p>
-<p>AOF持久化方式：是指所有命令行记录以redis命令请求协议的格式完成持久化存储，保存为AOF文件。</p>
-</li>
-<li><p><strong>AOF</strong></p>
-<p>AOF持久化，则是将redis的执行每次写命令记录到单独的日志文件中，当重启redis会重新将持久化的日志中文件恢复数据。</p>
-<p>当两种方式同时开启时，数据恢复redis会优先选择AOF恢复。</p>
-<p>优点：</p>
-<p>数据安全，aof持久化可以配置appendfsync 属性，有always。每进行一次命令操作就记录到aof文件中一次。</p>
-<p>通过append模式写文件，即使中途服务器宕机，可以通过redis-check-aof 工具解决数据一致性问题。</p>
-<p>AOF机制的rewrite模式，AOF文件没被rewrite之前，可以删除其中的某些命令。</p>
-<p>缺点：</p>
-<p>AOF文件比RDB文件大，且恢复速度慢。</p>
-<p>数据集大的时候，比rdb启动效率低。</p>
-</li>
-</ul>
-<p><strong>两个持久性方式的区别：</strong></p>
-<ul>
-<li>AOF文件比RDB更新频率高，优先使用AOF还原数据。</li>
-<li>AOF比RDB更安全也更大</li>
-<li>RDB性能比AOF好</li>
-<li>如果两个都配了优先加载AOF</li>
-</ul>
-<h3 id="内存相关"><a href="#内存相关" class="headerlink" title="内存相关"></a>内存相关</h3><p><strong>redis中数据如何保证都是热点数据？</strong></p>
-<p>redis内存数据集大熊啊上升到一定大小的时候，就会实行数据淘汰策略。</p>
-<p><strong>redis内存淘汰策略</strong></p>
-<p>全局的见空间选择性移除</p>
-<ul>
-<li>noeviction：当内存不足以容纳新写入数据时，新写入操作会报错。</li>
-<li>allkeys-lru：当内存不足以容纳新写入数据时，在键空间中，移除最近最少使用的key。</li>
-<li>allkeys-random：当内存不足以容纳新写入数据时，在键空间中，随机移除某个key。</li>
-</ul>
-<p>设置过期时间的键空间选择性移除：</p>
-<ul>
-<li>volatile-lru：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，移除最近最少使用的key。</li>
-<li>volatile-random：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，随机移除某个key。</li>
-<li>volatile-ttl：当内存不足以容纳新写入数据时，在设置了过期时间的键空间中，有更早过期时间的key优先移除。</li>
-</ul>
-<h3 id="redis事务"><a href="#redis事务" class="headerlink" title="redis事务"></a>redis事务</h3><h3 id="redis集群"><a href="#redis集群" class="headerlink" title="redis集群"></a>redis集群</h3><h4 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h4>
+                <h1 id="策略模式与模板方法：为什么它们总是一起出现"><a href="#策略模式与模板方法：为什么它们总是一起出现" class="headerlink" title="策略模式与模板方法：为什么它们总是一起出现"></a>策略模式与模板方法：为什么它们总是一起出现</h1><p>发通知几乎每个系统都有，也几乎都会踩同一个坑：通知类型越加越多，每种类型的数据来源和拼装逻辑都不一样，但”查数据、拼消息、发出去”这个流程骨架又都差不多。于是代码慢慢长成 if/else 按类型分发，每加一种类型就要改一次老方法，预览和发送还得各写一遍。</p>
+<p>我负责的项目里就有一个这样的通知模块。后来我用策略模式加模板方法把它重构成三件套结构，新增一种通知从”改一个 200 行的老方法”变成”新建一个 30 行的类”。这篇文章讲清楚这两个模式为什么总是一起出现，以及它们各自解决什么问题。</p>
+<h2 id="策略模式：把”怎么做”变成可替换的单元"><a href="#策略模式：把”怎么做”变成可替换的单元" class="headerlink" title="策略模式：把”怎么做”变成可替换的单元"></a>策略模式：把”怎么做”变成可替换的单元</h2><p>策略模式解决的是”一类事情有多种做法”。它把每种做法封装成独立类，让调用方只面向一个统一的接口，运行时要哪种就用哪种。</p>
+<p>我们模块里的策略接口长这样：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INoticeTemplate</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 策略的唯一标识，注册和查找都用它</span>
+    <span class="token class-name">String</span> <span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<p>哨兵模式主要是用于实现redis集群的高可用。</p>
-<ol>
-<li>集群监控：负责监控redis master 和 slave 进程是否正常工作。</li>
-<li>消息通知：如果redis实例有故障，那么哨兵负责发送消息作为报警通知给管理员，</li>
-<li>故障转移：如果master node 挂掉，会自动转移到 slave node上。</li>
-<li>配置中心：如果故障转移发生了，通知client客服端新的 master地址。</li>
-</ol>
-<p>核心：</p>
-<ol>
-<li>哨兵至少需要3个实例，保证自己的健壮性。</li>
-<li>哨兵+redis 主从的部署架构，是不保证数据零丢失的，只能保证redis集群的高可用性。</li>
-</ol>
-<h4 id="Redis-Cluster"><a href="#Redis-Cluster" class="headerlink" title="Redis Cluster"></a>Redis Cluster</h4><p>redis cluster 是一种服务端Sharding技术，3.0版本开始正式提供。redis cluster并没有使用一致性hash，而是采用slot的概念，一种分成16384个槽。将请求发送到任意节点，接收到请求的节点会将查询请求发送到正确的节点上执行。</p>
-<p>方案说明：</p>
-<ol>
-<li>通过哈希的方式，将数据分片，每个节点均分存储一定哈希槽(哈希值)区间的数据，默认分赔了16384个槽位。</li>
-<li>每份数据分片会存储在多个互为主从的多节点上。</li>
-<li>数据写入先写主节点，在同步到从节点(支持配置为阻塞同步)</li>
-<li>同一分片多个节点间的数据不保持一致性。</li>
-<li>读取数据时，当客服端操作的key没有分配在该节点上时，redis会返回转向指令，指向正确的节点</li>
-<li>扩容时需要把就节点数据迁移的一部分到新节点。</li>
-</ol>
-<p><strong>分布式寻址算法</strong></p>
-<ul>
-<li>hash算法</li>
-<li>一致性hash算法 （自动缓存迁移）+ 虚拟节点（自动负载均衡）</li>
-<li>redis cluster 的 hash slot 算法</li>
-</ul>
-<h4 id="Redis主从架构"><a href="#Redis主从架构" class="headerlink" title="Redis主从架构"></a>Redis主从架构</h4><p>对于缓存来说，一般都是用来支撑读高并发的，因此架构做成主从架构，一主多从，主负责写，并且将数据复制到其他的slave节点，从节点负责读。所有的读请求全部走从节点。轻松实现水平扩容，支撑读高并发。</p>
-<p>redis replication -&gt; 主从架构 -&gt; 读写分离 -&gt; 水平扩容支撑读高并发、</p>
-<p><strong>redis主从复制的核心原理</strong></p>
-<p>当启动一个从节点的时候，他会发送一个<code>PSYNC</code> 命令给 主节点。</p>
-<p>如果这是 从节点 初次连接到主节点，那么会触发一次 <code>full resynchronization</code> 全量复制。此时 master 会启动一个后台线程，开始生成一份 <code>RDB</code> 快照文件。</p>
-<p>同时还会将从客户端 client 新收到的所有写命令缓存在内存中。<code>RDB</code> 文件生成完毕后， master 会将这个 <code>RDB</code> 发送给 slave，slave 会先<strong>写入本地磁盘，然后再从本地磁盘加载到内存</strong>中，</p>
-<p>接着master会将内存中缓存的写命令发送到slave，slave也会同步这些数据。</p>
+    <span class="token comment">// 生成预览数据</span>
+    <span class="token class-name">PreviewNoticeVO</span> <span class="token function">previewNotice</span><span class="token punctuation">(</span><span class="token class-name">PreviewNoticeDTO</span> dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+    <span class="token comment">// 发送消息</span>
+    <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">T</span> <span class="token function">sendNotice</span><span class="token punctuation">(</span><span class="token class-name">PreviewNoticeDTO</span> dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>过程原理</p>
-<ol>
-<li>当从库和主库建立MS关系后，会向主数据库发送SYNC命令</li>
-<li>主库接收到SYNC命令后会开始在后台保存快照(RDB持久化过程)，并将期间接收到的写命令缓存起来</li>
-<li>当快照完成后，主Redis会将快照文件和所有缓存的写命令发送给从Redis</li>
-<li>从Redis接收到后，会载入快照文件并且执行收到的缓存的命令</li>
-<li>之后，主Redis每当接收到写命令时就会将命令发送从Redis，从而保证数据的一致</li>
-</ol>
-<h4 id="redis集群会有写操作丢失吗？"><a href="#redis集群会有写操作丢失吗？" class="headerlink" title="redis集群会有写操作丢失吗？"></a><strong>redis集群会有写操作丢失吗？</strong></h4><p>因为redis不能保证数据的强一致性，所以会存在丢失写操作。</p>
-<h4 id="Redis是单线程的，如何提高多核CPU的利用率？"><a href="#Redis是单线程的，如何提高多核CPU的利用率？" class="headerlink" title="Redis是单线程的，如何提高多核CPU的利用率？"></a>Redis是单线程的，如何提高多核CPU的利用率？</h4><p>可以在同一个服务器部署多个Redis的实例，并把他们当作不同的服务器来使用，在某些时候，无论如何一个服务器是不够的， 所以，如果你想使用多个CPU，你可以考虑一下分片（shard）。</p>
-<h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h4><p>redis为单进程单线程模式，采用队列模式将并发访问编程串行访问，且多客服端对redis的连接并不存在竞争关系，Redis中可以使用SETNX命令实现分布式锁。</p>
-<p>使用SETNX完成同步锁的流程：</p>
-<p>使用SETNX命令获取锁，若返回0（key已存在，锁已存在）则获取失败，反之获取成功</p>
-<p>为了防止获取锁后程序出现异常，导致其他线程/进程调用SETNX命令总是返回0而进入死锁状态，需要为该key设置一个“合理”的过期时间</p>
-<p>释放锁，使用DEL命令将锁数据删除</p>
-<h4 id="什么是-RedLock"><a href="#什么是-RedLock" class="headerlink" title="什么是 RedLock"></a>什么是 RedLock</h4><p>Redis 官方站提出了一种权威的基于 Redis 实现分布式锁的方式名叫 Redlock，此种方式比原先的单节点的方法更安全。它可以保证以下特性：</p>
-<ol>
-<li>安全特性：互斥访问，即永远只有一个 client 能拿到锁</li>
-<li>避免死锁：最终 client 都可能拿到锁，不会出现死锁的情况，即使原本锁住某资源的 client crash 了或者出现了网络分区</li>
-<li>容错性：只要大部分 Redis 节点存活就可以正常提供服务</li>
-</ol>
-<h3 id="缓存异常"><a href="#缓存异常" class="headerlink" title="缓存异常"></a>缓存异常</h3><h4 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h4><p>缓存雪崩是指缓存同一时间大面积的失效，后面的请求都会落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
-<p>解决方案：</p>
-<ol>
-<li>缓存数据的过期时间设置随机，防止同一时间大量数据过期现象发生。</li>
-<li>一般并发量不是特别多的时候，使用最多的解决方案时加锁排队。</li>
-<li>给每个缓存数据增加相应的缓存标记，记录缓存是否失效，如果缓存标记失效，则更新数据缓存。</li>
-</ol>
-<h4 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h4><p>缓存穿透是指缓存和数据库中都没有的数据，导致所有的请求都落到数据库上，造成数据库短时间内承受大量请求而崩掉。</p>
-<p>解决方案：</p>
-<ol>
-<li>接口层增加校验，如用户鉴权校验，id做基础校验，id&lt;=0的直接拦截。</li>
-<li>从缓存取不到，在数据库中也没有取到的数据，可以将key-value对写为key-null，缓存有效时间可以设置短一点。这样可以防止攻击用户反复用同一个id暴力攻击。</li>
-<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的bitmap中，一个一定不存在的数据会被这个bitmap拦截掉，从而避免了对底层存储系统的查询压力。</li>
-</ol>
-<p><strong>布隆过滤器</strong></p>
-<p>引入了k(k&gt;1)个相互独立的哈希函数，保证在给定的空间、误判率下，完成元素判重的过程。</p>
-<p>他的优点是空间效率和查询时间都远远超过一般的算法，缺点是有一定的误识别率和删除困难。</p>
-<p>Bloom-Filter算法的核心思想就是利用多个不同的Hash函数来解决“冲突”。<br>Hash存在一个冲突（碰撞）的问题，用同一个Hash得到的两个URL的值有可能相同。为了减少冲突，我们可以多引入几个Hash，如果通过其中的一个Hash值我们得出某元素不在集合中，那么该元素肯定不在集合中。只有在所有的Hash函数告诉我们该元素在集合中时，才能确定该元素存在于集合中。这便是Bloom-Filter的基本思想。<br>Bloom-Filter一般用于在大数据量的集合中判定某元素是否存在。</p>
-<h4 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h4><p>缓存击穿是指缓存中没有但数据库中存在的数据。这时由于并发用户特别多，同时都缓存没读到数据，又同时去数据库去取数据，引起数据库压力瞬间增大，造成过大压力。</p>
-<p>解决方案：</p>
-<ol>
-<li>设置热点数据永不过期</li>
-<li>加互斥锁</li>
-</ol>
-<h4 id="缓存预热"><a href="#缓存预热" class="headerlink" title="缓存预热"></a>缓存预热</h4><p>缓存预热就是系统上线后，将相关的缓存数据直接加载到缓存系统。这样就可以避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题。</p>
-<h4 id="缓存热点key"><a href="#缓存热点key" class="headerlink" title="缓存热点key"></a>缓存热点key</h4><p>缓存中的一个Key(比如一个促销商品)，在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+<p>每种通知实现这个接口，就是一个具体策略。调用方手里拿着的是 <code>INoticeTemplate</code>，根本不关心背后是哪一种通知。</p>
+<p>策略模式最大的收益是开闭原则：新增一种通知只需要新增一个实现类，已有的类和调用代码一行都不用动。它把”变化”从判断逻辑里剥离了出来，让”加类型”不再撬动老代码。</p>
+<p>它也有自己的边界。如果整个系统只有两三种通知，每种就几行逻辑，if/else 反而更直白。策略模式的价值在”类型会持续增长”的场景，那时每加一种类型都在改老代码，才是它出手的时候。</p>
+<h2 id="模板方法模式：把”流程”固化在骨架里"><a href="#模板方法模式：把”流程”固化在骨架里" class="headerlink" title="模板方法模式：把”流程”固化在骨架里"></a>模板方法模式：把”流程”固化在骨架里</h2><p>策略模式解决了”有哪几种做法”，但还没解决另一个问题：这些做法的内部流程几乎一模一样。每种通知都要”校验参数、查数据、拼变量、渲染、发送”，只有中间”查数据拼变量”这一步不同。如果每个策略类都把完整流程抄一遍，重复代码会以”每个类一份”的方式重新长回来。</p>
+<p>模板方法模式就是为这个场景准备的。它把不变的流程写死在抽象基类里，把变化的那一步留成抽象方法，交给子类实现。我们项目里的抽象基类大概是这个样子（略去了细节）：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">NoticeTemplateAbstract</span> <span class="token keyword">implements</span> <span class="token class-name">INoticeTemplate</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">PreviewNoticeVO</span> <span class="token function">previewNotice</span><span class="token punctuation">(</span><span class="token class-name">PreviewNoticeDTO</span> dto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 骨架第一步：让子类去查数据、拼变量</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> maps <span class="token operator">=</span> <span class="token function">chkAndBuildUserDataMapList</span><span class="token punctuation">(</span>dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 骨架第二步：统一的渲染逻辑</span>
+        <span class="token keyword">return</span> <span class="token function">genAnyPreviewNoticeVo</span><span class="token punctuation">(</span>dto<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dto<span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> maps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">T</span><span class="token punctuation">&gt;</span></span> <span class="token class-name">T</span> <span class="token function">sendNotice</span><span class="token punctuation">(</span><span class="token class-name">PreviewNoticeDTO</span> dto<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> maps <span class="token operator">=</span> <span class="token function">chkAndBuildUserDataMapList</span><span class="token punctuation">(</span>dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        messageService<span class="token punctuation">.</span><span class="token function">sendMessageByContent</span><span class="token punctuation">(</span><span class="token function">getCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dto<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dto<span class="token punctuation">.</span><span class="token function">getContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> maps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">T</span><span class="token punctuation">)</span> <span class="token class-name">Boolean</span><span class="token punctuation">.</span><span class="token constant">TRUE</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// 变化点：数据从哪来、变量怎么拼，由每种通知自己实现</span>
+    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Map</span><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span> <span class="token function">chkAndBuildUserDataMapList</span><span class="token punctuation">(</span><span class="token class-name">PreviewNoticeDTO</span> dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>“校验、构建、渲染、发送”这些步骤被收进了骨架，子类只负责填 <code>chkAndBuildUserDataMapList</code> 这一个空。预览和发送是两套入口，但共享同一个查数逻辑，这顺带解决了一个隐患：预览看到的内容和实际发送的内容永远一致。</p>
+<p>骨架还可以留”钩子”，让流程在特定节点被子类改写。我们项目里有一个变体骨架，把抽象方法升级成带 <code>isSend</code> 参数：预览时传 false，发送时传 true。有些通知发送前要落库、改状态，而预览时不能产生这些副作用，钩子正好让同一个类在两种场景下走不同的分支。</p>
+<h2 id="两个模式如何咬合"><a href="#两个模式如何咬合" class="headerlink" title="两个模式如何咬合"></a>两个模式如何咬合</h2><p>现在回到最开始的问题：为什么这两个模式总是一起出现？</p>
+<p>因为它们解决的是同一个问题的两个不同层。策略模式管”系统里有哪几种实现，运行时选哪个”；模板方法管”某个实现内部的流程怎么复用”。现实中的”同类不同实现”，几乎总是同时带着这两层需求：类型很多，需要策略来组织；每个类型又有相似流程，需要模板方法来去重。</p>
+<p>两个模式在同一个类上汇合。一个具体通知类同时扮演两个角色：它是被选中的”策略”，也是复用骨架的”子类”。三层结构长这样：</p>
+<pre class="line-numbers language-mermaid" data-language="mermaid"><code class="language-mermaid"><span class="token keyword">classDiagram</span>
+    <span class="token keyword">class</span> INoticeTemplate <span class="token punctuation">{</span>
+        <span class="token annotation important">&lt;&lt;interface&gt;&gt;</span>
+        +getCode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        +previewNotice<span class="token text string">(dto)</span>
+        +sendNotice<span class="token text string">(dto)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">class</span> NoticeTemplateAbstract <span class="token punctuation">{</span>
+        <span class="token annotation important">&lt;&lt;abstract&gt;&gt;</span>
+        +previewNotice<span class="token text string">(dto)</span>
+        +sendNotice<span class="token text string">(dto)</span>
+        +chkAndBuildUserDataMapList<span class="token text string">(dto)</span>*
+    <span class="token punctuation">}</span>
+    <span class="token keyword">class</span> AddJudgeNoticeTemplate <span class="token punctuation">{</span>
+        +getCode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        +chkAndBuildUserDataMapList<span class="token text string">(dto)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">class</span> StartReportNoticeTemplate <span class="token punctuation">{</span>
+        +getCode<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        +chkAndBuildUserDataMapList<span class="token text string">(dto)</span>
+    <span class="token punctuation">}</span>
+    INoticeTemplate <span class="token arrow operator">&lt;|--</span> NoticeTemplateAbstract
+    NoticeTemplateAbstract <span class="token arrow operator">&lt;|--</span> AddJudgeNoticeTemplate
+    NoticeTemplateAbstract <span class="token arrow operator">&lt;|--</span> StartReportNoticeTemplate<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>最顶层的接口定义”能力”，中间的抽象类实现接口并固定”流程”，最底层的每个具体类只写”自己的数据从哪来”。新增一种通知，就是在最底层加一个类，上面两层完全不动。</p>
+<h2 id="配角：怎么拿到想要的策略"><a href="#配角：怎么拿到想要的策略" class="headerlink" title="配角：怎么拿到想要的策略"></a>配角：怎么拿到想要的策略</h2><p>策略模式本身没有回答”运行时怎么选到目标策略”。实践中需要一个取用机制，最简单的办法是给每个策略一个唯一 code，用一个 map 存起来。</p>
+<p>Spring 里最省事的做法，是让工厂在构造时把容器里所有策略实现自动收集进来。<code>INoticeTemplate</code> 的所有实现类都是 Spring bean，所以直接在构造器里注入 <code>List&lt;INoticeTemplate&gt;</code>，Spring 会把它们全部收集好送过来：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NoticeTemplateFactory</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">INoticeTemplate</span><span class="token punctuation">&gt;</span></span> templateMap<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">NoticeTemplateFactory</span><span class="token punctuation">(</span><span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">INoticeTemplate</span><span class="token punctuation">&gt;</span></span> templates<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        templateMap <span class="token operator">=</span> templates<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token class-name">Collectors</span><span class="token punctuation">.</span><span class="token function">toMap</span><span class="token punctuation">(</span><span class="token class-name">INoticeTemplate</span><span class="token operator">::</span><span class="token function">getCode</span><span class="token punctuation">,</span> t <span class="token operator">-&gt;</span> t<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">INoticeTemplate</span> <span class="token function">getTemplate</span><span class="token punctuation">(</span><span class="token class-name">String</span> code<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">isTrue</span><span class="token punctuation">(</span>templateMap<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"不支持的模板类型："</span> <span class="token operator">+</span> code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> templateMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注册逻辑整个收进了工厂构造器，且集中在工厂这一处。调用方最后就一行：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">noticeTemplateFactory<span class="token punctuation">.</span><span class="token function">getTemplate</span><span class="token punctuation">(</span>code<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendNotice</span><span class="token punctuation">(</span>dto<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这里有个容易想到的替代方案，值得对比：让每个策略在初始化时把自己注册进工厂（比如 <code>@PostConstruct</code> 里调一个 register 方法）。它也能工作，但策略类因此要感知工厂的存在，注册行为散落在每个策略里。用构造器注入收集，策略类对工厂一无所知，注册集中在一个地方，职责更干净。唯一的前提是策略得是 Spring 管理的 bean，这在 Spring 项目里是默认成立的。</p>
+<p>说句公道话，这个工厂在整个设计里是配角。没有它，直接在业务代码里注入 <code>List&lt;INoticeTemplate&gt;</code> 再自己找，效果也差不多，策略加模板方法这对组合的核心思想跟工厂无关。我单独把它拎出来讲，是因为”策略模式落地时总要有个取用机制”，而这是代码量最小、最 Spring 味的一种。</p>
+<h2 id="代价：不是什么场景都该用"><a href="#代价：不是什么场景都该用" class="headerlink" title="代价：不是什么场景都该用"></a>代价：不是什么场景都该用</h2><p>这套组合不是免费的。代价主要有三个：类数量随类型数增长，每个类型一个文件；多了一层间接，读代码要沿着”接口→基类→子类”走三个文件；理解成本高，新人第一次看会困惑为什么搞这么绕。</p>
+<p>所以我的判断标准很直接。当你的代码同时出现三个信号，才值得用：同类实现超过三五个，每个实现内部都有一截相似的流程，而且运行时要按标识动态选择。满足这三点，策略加模板方法的收益才覆盖得住成本。只有一两个实现的小系统，if/else 就是正确的选择，硬套模式只会让简单的事情变复杂。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>三个模式各归其位：策略模式回答”有哪几种做法”，模板方法回答”一种做法内部的流程怎么复用”，工厂回答”我要的是哪一种”。策略管外部，模板方法管内部，工厂做辅助。</p>
+<p>如果你手上也有一坨 if/else 分发的代码，而且正在为”加一种类型要动老代码”头疼，可以试着按”接口 + 抽象骨架 + 具体实现”三层重写一遍。重写完你会直观地感受到一件事：以后再新增类型，你只需要新建一个文件，然后心平气和地收工。</p>
 
                 
             </div>
@@ -664,7 +625,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://leejiezh.github.io/2022/06/12/Redis/">https://leejiezh.github.io/2022/06/12/Redis/</a>
+                    <a href="https://leejiezh.github.io/2026/08/23/%E7%AD%96%E7%95%A5-%E6%A8%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">https://leejiezh.github.io/2026/08/23/%E7%AD%96%E7%95%A5-%E6%A8%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -702,8 +663,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/redis/">
-                                    <span class="chip bg-color">redis</span>
+                                <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                                    <span class="chip bg-color">设计模式</span>
                                 </a>
                             
                         </div>
@@ -748,7 +709,7 @@
         repo: 'leejiezh.github.io',
         owner: 'leejiezh',
         admin: "leejiezh",
-        id: '2022-06-12T14-49-18',
+        id: '2026-08-23T14-25-12',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -774,66 +735,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2022/06/14/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="分布式事务">
-                        
-                        <span class="card-title">分布式事务</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-14
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
-                                    后端
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">
-                        <span class="chip bg-color">分布式事务</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/2022/06/12/Redis/">
+                <a href="/2026/08/23/%E7%AD%96%E7%95%A5-%E6%A8%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
+                        <img src="/medias/featureimages/%E7%AD%96%E7%95%A5+%E6%A8%A1%E6%9D%BF%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2.png" class="responsive-img" alt="设计模式-策略&amp;模板">
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Redis">
-                        
-                        <span class="card-title">Redis</span>
+                        <span class="card-title">设计模式-策略&amp;模板</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -844,7 +756,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-12
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-08-23
                             </span>
                         <span class="publish-author">
                             
@@ -862,8 +774,61 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/redis/">
-                        <span class="chip bg-color">redis</span>
+                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                        <span class="chip bg-color">设计模式</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2026/04/01/Minio%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="Minio下载安装">
+                        
+                        <span class="card-title">Minio下载安装</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2026-04-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BF%90%E7%BB%B4/" class="post-category">
+                                    运维
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/minio/">
+                        <span class="chip bg-color">minio</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1/">
+                        <span class="chip bg-color">存储服务</span>
                     </a>
                     
                 </div>
