@@ -2,7 +2,7 @@
 title: Spring Security登录认证
 top: false
 cover: false
-img: /medias/featureimages/Spring-Security封面
+img: /medias/featureimages/SpringSecurity封面.png
 toc: true
 mathjax: true
 date: 2026-08-26 09:24:07
