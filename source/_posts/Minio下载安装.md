@@ -2,6 +2,7 @@
 title: Minio下载安装
 top: false
 cover: false
+img: /medias/featureimages/Mino安装部署文章封面图.jpeg
 toc: true
 mathjax: true
 date: 2026-04-01 22:03:00
